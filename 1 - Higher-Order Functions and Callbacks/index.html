@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Higher-Order Function Example</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+    body {
+      background-color: rgb(171, 171, 171);
+      font-family: "Arial", sans-serif;
+    }
+
+    .card {
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    #totalCount {
+      color: #0955c5;
+      font-size: 1.2rem;
+    }
+
+    .card-header {
+      background-color: #343a40;
+      color: white;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .form-control {
+      border-radius: 5px;
+    }
+
+    .output {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="card shadow-lg" style="max-width: 600px; margin: 0 auto;">
+      <div class="card-header">
+        <h3 class="card-title text-center">Higher-Order Function</h3>
+      </div>
+      <div class="card-body">
+        <p>Enter an array of numbers (comma-separated):</p>
+        <input type="text" id="inputArray" class="form-control" placeholder="e.g., 1, 2, 3, 4, 5">
+        <button onclick="processArray()" class="btn btn-primary mt-3 w-100">Process Array</button>
+        <div class="output" id="output"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function mapArray(arr, callback) {
+      const resultArray = [];
+      for (let i = 0; i < arr.length; i++) {
+        resultArray.push(callback(arr[i]));
+      }
+      return resultArray;
+    }
+
+    function double(num) {
+      return num * 2;
+    }
+
+    function processArray() {
+      const input = document.getElementById('inputArray').value;
+
+      const inputArray = input.split(',').map(Number);
+
+      const resultArray = mapArray(inputArray, double);
+
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = `
+        <p><strong>Input Array:</strong> [${inputArray.join(', ')}]</p>
+        <p><strong>Result Array (Doubled):</strong> [${resultArray.join(', ')}]</p>
+      `;
+    }
+  </script>
+</body>
+</html>
